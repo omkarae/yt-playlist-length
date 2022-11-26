@@ -15,8 +15,8 @@
 
 ## Screenshots
 <p float="left">
-  <img src="https://github.com/omkarae/yt-playlist-length/blob/master/1.png" alt="UI" height=200px></img>
-  <img src="https://github.com/omkarae/yt-playlist-length/blob/master/2.png" alt="Response" height=200px></img>
+  <img src="https://github.com/omkarae/yt-playlist-length/blob/main/1.png" alt="UI" height=200px></img>
+  <img src="https://github.com/omkarae/yt-playlist-length/blob/main/2.png" alt="Response" height=200px></img>
 </p>
 
 
