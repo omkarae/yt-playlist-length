@@ -11,7 +11,7 @@ with open('config.json','r') as c:
     params = json.load(c)["params"]
 
 
-local_server=True
+# local_server=True
 app = Flask(__name__)
 def get_id(playlist_link):
     p = re.compile('^([\S]+list=)?([\w_-]+)[\S]*$')
@@ -64,14 +64,17 @@ def get_time(link):
         if 'nextPageToken' in results:
             next_page = results['nextPageToken']
         else:
-            noOfVideos = cnt 
-            avgLength = a/cnt 
-            totalLength = a
-            at125 = a/1.25 
-            at150 = a/1.5 
-            at175 = a/1.75 
-            at200 = a/2
+            noOfVideos = str(cnt) 
+            avgLength = str(a/cnt) 
+            totalLength = str(a)
+            at125 = str(a/1.25) 
+            at150 = str(a/1.5) 
+            at175 = str(a/1.75) 
+            at200 = str(a/2)
             break
     return noOfVideos,avgLength,totalLength,at125,at150,at175,at200
-app.run(debug=True,port=5001)
+if __name__ == "__main__":
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=8080)
+# app.run(debug=True,port=5001)
 
