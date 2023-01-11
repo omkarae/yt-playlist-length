@@ -41,9 +41,9 @@ def home():
 
 def get_time(link):
     # yt_api = params['API_KEY']
-    # yt_api = environ.get('yt_api')
-    a = dotenv_values('.env')
-    yt_api = a['yt_api']
+    yt_api = environ.get('yt_api')
+    # a = dotenv_values('.env')
+    # yt_api = a['yt_api']
     playlist_id = get_id(link)
     URL1 = 'https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&fields=items/contentDetails/videoId,nextPageToken&key={}&playlistId={}&pageToken='.format(yt_api, playlist_id)
     URL2 = 'https://www.googleapis.com/youtube/v3/videos?&part=contentDetails&key={}&id={}&fields=items/contentDetails/duration'.format(yt_api, '{}')
