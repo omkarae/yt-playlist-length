@@ -9,8 +9,9 @@ import json, requests
 import re
 # logging
 from dotenv import dotenv_values
-with open('config.json','r') as c:
-    params = json.load(c)["params"]
+# with open('config.json','r') as c:
+#     params = json.load(c)["params"]
+params={}
 # yt_api = environ.get('yt_api')
 
 # local_server=True
