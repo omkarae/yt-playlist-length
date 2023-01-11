@@ -27,18 +27,38 @@ def get_id(playlist_link):
 def home():
     if(request.method=='POST'):
         link=request.form.get('link')
+        if(link==''):
+            return render_template('index.html',params=params)
         # playlist_id = get_id(link)
         # replace with your api
         
         # replace with your playlist_id
         
+        try:
+            noOfVideos,avgLength,totalLength,at125,at150,at175,at200 = get_time(link)
+            return render_template("ans.html",noOfVideos=noOfVideos,avgLength=avgLength,totalLength=totalLength,at125=at125,at150=at150,at175=at175,at200=at200)
+        except:
+            return render_template('index.html',params=params)
         
-        noOfVideos,avgLength,totalLength,at125,at150,at175,at200 = get_time(link)
-        return render_template("ans.html",noOfVideos=noOfVideos,avgLength=avgLength,totalLength=totalLength,at125=at125,at150=at150,at175=at175,at200=at200)
 
     elif(request.method=='GET'):
         return render_template('index.html',params=params)
-
+def parse(a):
+    ts, td = a.seconds, a.days
+    th, tr = divmod(ts, 3600)
+    tm, ts = divmod(tr, 60)
+    ds = ''
+    if td:
+        ds += ' {} day{},'.format(td, 's' if td != 1 else '')
+    if th:
+        ds += ' {} hour{},'.format(th, 's' if th != 1 else '')
+    if tm:
+        ds += ' {} minute{},'.format(tm, 's' if tm != 1 else '')
+    if ts:
+        ds += ' {} second{}'.format(ts, 's' if ts != 1 else '')
+    if ds == '':
+        ds = '0 seconds'
+    return ds.strip().strip(',')
 def get_time(link):
     # yt_api = params['API_KEY']
     yt_api = environ.get('yt_api')
@@ -71,12 +91,13 @@ def get_time(link):
             next_page = results['nextPageToken']
         else:
             noOfVideos = str(cnt) 
-            avgLength = str(a/cnt) 
-            totalLength = str(a)
-            at125 = str(a/1.25) 
-            at150 = str(a/1.5) 
-            at175 = str(a/1.75) 
-            at200 = str(a/2)
+            avgLength = parse(a/cnt) 
+            totalLength = parse(a)
+            at125 = parse(a/1.25) 
+            at150 = parse(a/1.5) 
+            at175 = parse(a/1.75) 
+            at200 = parse(a/2)
+            # print(noOfVideos,avgLength,totalLength,at125,at150,at175,at200)
             break
     return noOfVideos,avgLength,totalLength,at125,at150,at175,at200
 if __name__ == "__main__":
