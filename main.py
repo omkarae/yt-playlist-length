@@ -1,15 +1,17 @@
-from ssl import VerifyMode
+# from ssl import VerifyMode
 from urllib import response
 from flask import Flask, render_template,request,session,redirect,flash,url_for
-import os,math
+from os import environ
 from datetime import timedelta
 import datetime
 import isodate
 import json, requests
-import re,logging
+import re
+# logging
+from dotenv import dotenv_values
 with open('config.json','r') as c:
     params = json.load(c)["params"]
-
+# yt_api = environ.get('yt_api')
 
 # local_server=True
 app = Flask(__name__)
@@ -37,7 +39,10 @@ def home():
         return render_template('index.html',params=params)
 
 def get_time(link):
-    yt_api = params['API_KEY']
+    # yt_api = params['API_KEY']
+    # yt_api = environ.get('yt_api')
+    a = dotenv_values('.env')
+    yt_api = a['yt_api']
     playlist_id = get_id(link)
     URL1 = 'https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&fields=items/contentDetails/videoId,nextPageToken&key={}&playlistId={}&pageToken='.format(yt_api, playlist_id)
     URL2 = 'https://www.googleapis.com/youtube/v3/videos?&part=contentDetails&key={}&id={}&fields=items/contentDetails/duration'.format(yt_api, '{}')
